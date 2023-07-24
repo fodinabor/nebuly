@@ -15,7 +15,6 @@ from open_alpha_tensor.core.data.utils import (
     map_triplet_to_action,
 )
 
-SAVE_DIR_SYNT = str(Path.home() / ".data_alpha_tensor/synthetic_data")
 
 
 def compute_move(triplets: Tuple[torch.Tensor, torch.Tensor, torch.Tensor]):
@@ -42,6 +41,7 @@ class SyntheticDataBuffer(Dataset):
         n_prev_actions: int,
         device: str,
         n_steps: int,
+        tmp_path: str,
         random_seed=None,
     ):
         """Builds a dataset of synthetic demonstrations.
@@ -57,12 +57,13 @@ class SyntheticDataBuffer(Dataset):
             n_steps (int): Number of steps to perform in the environment.
             random_seed (int, optional): Random seed to use.
         """
+        self.SAVE_DIR_SYNT = os.path.join(tmp_path , ".data_alpha_tensor/synthetic_data")
         self.device = device
         self.len_data = 0
         self.n_prev_actions = n_prev_actions
         self.limit_rank = limit_rank
         self.n_steps = n_steps
-        self.save_dir = os.path.join(SAVE_DIR_SYNT, f"size_{tensor_size}")
+        self.save_dir = os.path.join(self.SAVE_DIR_SYNT, f"size_{tensor_size}")
         Path(self.save_dir).mkdir(parents=True, exist_ok=True)
         number_of_triplets = len(list(Path(self.save_dir).glob("*.pt"))) // 2
         if number_of_triplets < n_data:
@@ -267,6 +268,7 @@ class TensorGameDataset(Dataset):
         action_memory_len: int,
         device: str,
         n_steps: int,
+        tmp_path: str,
         random_seed=None,
     ):
         self.synthetic_data_buffer = SyntheticDataBuffer(
@@ -277,6 +279,7 @@ class TensorGameDataset(Dataset):
             action_memory_len,
             n_steps=n_steps,
             device=device,
+            tmp_path=tmp_path,
             random_seed=random_seed,
         )
         self.game_data_buffer = GameDataBuffer(

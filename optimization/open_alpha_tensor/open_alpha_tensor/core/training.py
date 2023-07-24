@@ -123,6 +123,7 @@ class Trainer:
         random_seed: int = None,
         checkpoint_dir: str = None,
         checkpoint_data_dir: Path = None,
+        tmp_path: str,
         extra_devices: List[str] = None,
     ):
         """Initializes the trainer.
@@ -169,6 +170,7 @@ class Trainer:
             f_prob_distribution,
             device=device,
             n_steps=n_steps,
+            tmp_path=tmp_path,
             action_memory_len=(model.tensor_length - 1),
             random_seed=random_seed,
         )
@@ -190,7 +192,7 @@ class Trainer:
         )
         self.checkpoint_data_dir.mkdir(exist_ok=True, parents=True)
         self.change_of_basis = ChangeOfBasis(
-            tensor_size, n_cob, cob_prob, device, random_seed
+            tensor_size, n_cob, cob_prob, device, tmp_path, random_seed
         )
         self.data_augmentation = data_augmentation
         self.extra_devices = extra_devices

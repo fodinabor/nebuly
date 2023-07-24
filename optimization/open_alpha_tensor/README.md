@@ -57,6 +57,7 @@ train_alpha_tensor(
     limit_rank=150,
     checkpoint_dir="path/to/checkpoint/dir",
     checkpoint_data_dir="path/where/to/save/data/generated/by/the/model",
+    tmp_path="path/where/to/save/synthetic/data",
     n_actors=1,
     mc_n_sim=200,
     n_cob=100000,

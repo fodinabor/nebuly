@@ -55,6 +55,7 @@ class ChangeOfBasis:
         n_cob: int,
         cob_prob: float,
         device: str,
+        tmp_dir: str,
         random_seed: int = None,
     ):
         """Builds a ChangeOfBasis object.
@@ -66,7 +67,8 @@ class ChangeOfBasis:
             device (str): Name of the torch device to use.
             random_seed (int, optional): Random seed for reproducibility.
         """
-        self.tmp_dir = Path.home() / ".data_alpha_tensor/cob_matrices"
+
+        self.tmp_dir = Path(tmp_dir) / ".data_alpha_tensor/cob_matrices"
         self.tmp_dir.mkdir(exist_ok=True, parents=True)
         for i, cob_matrix in enumerate(
             get_change_basis_matrix(

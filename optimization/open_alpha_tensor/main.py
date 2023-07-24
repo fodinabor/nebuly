@@ -41,6 +41,7 @@ def main():
     parser.add_argument("--random_seed", type=int, default=None)
     parser.add_argument("--checkpoint_dir", type=str, default=None)
     parser.add_argument("--checkpoint_data_dir", type=str, default=None)
+    parser.add_argument("--tmp_data", type=str, default=Path.home())
     parser.add_argument("--matrix_size", type=int, default=3)
     parser.add_argument("--embed_dim", type=int, default=1024)
     parser.add_argument("--actions_sampled", type=int, default=10)
@@ -92,6 +93,7 @@ def main():
         random_seed=args.random_seed,
         checkpoint_dir=args.checkpoint_dir,
         checkpoint_data_dir=args.checkpoint_data_dir,
+        tmp_path=args.tmp_data,
         n_actors=args.n_actors,
         mc_n_sim=args.mc_n_sim,
         n_cob=args.n_cob,
