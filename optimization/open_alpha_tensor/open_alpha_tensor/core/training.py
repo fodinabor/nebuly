@@ -123,7 +123,7 @@ class Trainer:
         random_seed: int = None,
         checkpoint_dir: str = None,
         checkpoint_data_dir: Path = None,
-        tmp_path: str,
+        tmp_path: str = None,
         extra_devices: List[str] = None,
     ):
         """Initializes the trainer.
@@ -170,7 +170,7 @@ class Trainer:
             f_prob_distribution,
             device=device,
             n_steps=n_steps,
-            tmp_path=tmp_path,
+            tmp_path=tmp_path if tmp_path else Path.home(),
             action_memory_len=(model.tensor_length - 1),
             random_seed=random_seed,
         )
